@@ -4,6 +4,7 @@ import random as r
 class Board():
     def __init__(self, size):
         self.size = size
+        # Set of instructions to take a direction and construct a for loop sequence
         self.sequenceDict = {
                     'L' : (0, self.size, 1, 1, 0, True),
                     'U' : (0, self.size, 1, 0, 1, False),
@@ -41,9 +42,15 @@ class Board():
         # Combine any equal and non 0 pieces 
         elif movePiece == staticPiece and (movePiece + staticPiece) != 0:
             return 2
-        '''# Ignore any unequal pieces?
+        # Ignore any unequal pieces
         elif movePiece != staticPiece:
-            return 0'''
+            return 0
+        
+        '''Summary of Logical flow:
+        if movePiece is 0, then skip because we dont move empty space,
+        if staticPiece is 0 then we swap it with the move piece since it must have a value,
+        if the pieces are equal value then combine them,
+        and finally if they are unequal non zero values (not swapable or combinable) then ignore them (needed for game over)'''
         
     def move(self, directionKey):
 
@@ -113,18 +120,19 @@ class Board():
             iMod, jMod, isInverse = seq[3], seq[4], seq[5]
 
             for outer in range(sMin, sMax, sStep):
-                    for inner in range(sMin, sMax, sStep):
-                        if isInverse:
-                            i, j = inner, outer
-                        else:
-                            i, j = outer, inner
+                for inner in range(sMin, sMax, sStep):
+                    if isInverse:
+                        i, j = inner, outer
+                    else:
+                        i, j = outer, inner
 
-                        # Does not compare values that are out of range (non existent)
-                        if ((i + iMod < 0) or (j + jMod < 0) or (i + iMod > self.size-1) or (j + jMod > self.size-1)):
-                            continue
+                    # Does not compare values that are out of range (non existent)
+                    if ((i + iMod < 0) or (j + jMod < 0) or (i + iMod > self.size-1) or (j + jMod > self.size-1)):
+                        continue
 
-                        # Comparison logic mainly from comparePiece() method
-                        if self.comparePiece(self.board[i][j].getVal(), self.board[i + iMod][j + jMod].getVal()) != 0:
-                            return True
-        
+                    # Comparison logic mainly from comparePiece() method
+                    if self.comparePiece(self.board[i][j].getVal(), self.board[i + iMod][j + jMod].getVal()) != 0:
+                        print(f'Found available move\n({i},{j}) = {self.board[i][j].getVal()} ... ({i + iMod},{j + jMod}) {self.board[i + iMod][j + jMod].getVal()}')
+                        return True
+        print('No moves left')
         return False

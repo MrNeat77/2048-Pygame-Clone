@@ -28,8 +28,7 @@ class Game():
                 if event.type == pygame.KEYDOWN:
                     keys = pygame.key.get_pressed()
                     self.handleKey(keys)
-
-            self.gameOver = self.checkGameOver()
+                    self.gameOver = self.checkGameOver()            
 
             if self.gameOver == 'WIN':
                 pygame.display.set_caption('You won!!!')
@@ -100,6 +99,7 @@ class Game():
                     return 'WIN'
                 # Game continues if there is any 0 value
                 elif piece.getVal()== 0:
+                    print('found 0')
                     return False
         # Game over when there is no 0 values
         # Check if there are no possible moves somehow
