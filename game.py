@@ -99,7 +99,6 @@ class Game():
                     return 'WIN'
                 # Game continues if there is any 0 value
                 elif piece.getVal()== 0:
-                    print('found 0')
                     return False
         # Game over when there is no 0 values
         # Check if there are no possible moves somehow

@@ -132,7 +132,5 @@ class Board():
 
                     # Comparison logic mainly from comparePiece() method
                     if self.comparePiece(self.board[i][j].getVal(), self.board[i + iMod][j + jMod].getVal()) != 0:
-                        print(f'Found available move\n({i},{j}) = {self.board[i][j].getVal()} ... ({i + iMod},{j + jMod}) {self.board[i + iMod][j + jMod].getVal()}')
                         return True
-        print('No moves left')
         return False
